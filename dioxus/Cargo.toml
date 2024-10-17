@@ -1,0 +1,21 @@
+[package]
+name = "dioxus"
+version = "0.1.0"
+authors = ["Goetz Markgraf <goeetz.markgraf@codecentric.de>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.197", features = ["derive"] }
+dioxus = { version = "0.5", features = ["fullstack", "router"] }
+manganis = "0.2.2"
+serde_json = "1.0.128"
+
+# Debug
+dioxus-logger = "0.5.1"
+
+[features]
+default = []
+server = ["dioxus/axum"]
+web = ["dioxus/web"]
