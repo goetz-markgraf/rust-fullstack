@@ -3,6 +3,8 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
+
+
 #[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
@@ -27,6 +29,8 @@ pub fn App() -> impl IntoView {
         </Router>
     }
 }
+
+
 
 /// Renders the home page of your application.
 #[component]
@@ -63,9 +67,10 @@ fn HomePage() -> impl IntoView {
         />
         <br/>
         <button on:click=move|_| create_todo_action.dispatch(new_todo_title()) >"Add Todo"</button>
-        <button on:click=move|_| todo_list.refetch() >"Refresh"</button>
     }
 }
+
+
 
 /// Renders a list of todos.
 #[component]
@@ -80,18 +85,27 @@ fn TodoList(todos: impl Fn() -> Vec<Todo> + 'static) -> impl IntoView {
     }
 }
 
+
+
 /// Renders a single todo item.
 #[component]
 fn SingleTodoItem(single_todo: impl Fn() -> Todo + 'static) -> impl IntoView {
-    let todo = single_todo();
+    let single_todo = single_todo();
+    let style = if single_todo.completed {
+        Some("completed".to_string())
+    } else {
+        None
+    };
     view! {
-        <li>
-            <input type="checkbox" checked=todo.completed/>
+        <li class={style}>
+            <input type="checkbox" checked=single_todo.completed/>
             {" "}
-            <span>{todo.description}</span>
+            <span>{single_todo.description}</span>
         </li>
     }
 }
+
+
 
 /// 404 - Not Found
 #[component]

@@ -1,5 +1,7 @@
 use leptos::{server, ServerFnError};
 
+
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Todo {
     pub id: usize,
@@ -15,6 +17,8 @@ pub async fn get_todos() -> Result<Vec<Todo>, ServerFnError> {
 
     Ok(todos)
 }
+
+
 
 #[server]
 pub async fn add_todo(todo_title: String) -> Result<Todo, ServerFnError> {
@@ -34,6 +38,8 @@ pub async fn add_todo(todo_title: String) -> Result<Todo, ServerFnError> {
 
     Ok(todo)
 }
+
+
 
 #[server]
 pub async fn update_todo(id: usize, completed: bool) -> Result<Todo, ServerFnError> {
@@ -66,6 +72,7 @@ pub async fn update_todo(id: usize, completed: bool) -> Result<Todo, ServerFnErr
     //     }
     // }
 }
+
 
 
 pub fn read_todos_from_file() -> Result<Vec<Todo>, ServerFnError> {
