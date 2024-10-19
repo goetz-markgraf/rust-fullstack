@@ -2,10 +2,9 @@
 extern crate rocket;
 
 use controllers::todos::{create_todo, delete_todo, list_todos, update_todo};
-use lazy_static::lazy_static;
 use rocket::tokio::sync::Mutex;
-use std::fs::OpenOptions;
-use std::io::{self, BufReader, BufWriter};
+use std::fs::{read_to_string, File};
+use std::io::{self, BufWriter};
 use std::sync::Arc;
 use std::vec::Vec;
 
@@ -15,26 +14,19 @@ mod controllers;
 
 type TodoList = Arc<Mutex<Vec<Todo>>>;
 
-lazy_static! {
-    static ref TODO_FILE_PATH: String = "todos.json".to_string();
-}
+const TODO_FILE_PATH: &str = "todos.json";
 
 fn load_todos_from_file() -> io::Result<Vec<Todo>> {
-    let file = match OpenOptions::new().read(true).open(&*TODO_FILE_PATH) {
-        Ok(file) => file,
+    let contents = match read_to_string(TODO_FILE_PATH) {
+        Ok(text) => text,
         Err(_) => return Ok(Vec::new()),
     };
-    let reader = BufReader::new(file);
-    let todos: Vec<Todo> = serde_json::from_reader(reader)?;
+    let todos: Vec<Todo> = serde_json::from_str(&contents)?;
     Ok(todos)
 }
 
 pub fn save_todos_to_file(todos: &Vec<Todo>) -> io::Result<()> {
-    let file = OpenOptions::new()
-        .write(true)
-        .truncate(true)
-        .create(true)
-        .open(&*TODO_FILE_PATH)?;
+    let file = File::create(TODO_FILE_PATH)?;
     let writer = BufWriter::new(file);
     serde_json::to_writer(writer, todos)?;
     Ok(())
