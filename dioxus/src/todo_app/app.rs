@@ -3,6 +3,8 @@ use dioxus::prelude::*;
 use super::server_functions::{add_todo, read_todos, toggle_completed};
 use super::types::Todo;
 
+
+
 #[component]
 pub fn TodoApp() -> Element {
     let mut todo_list = use_resource(|| async move { read_todos().await });
@@ -53,6 +55,8 @@ pub fn TodoApp() -> Element {
     }
 }
 
+
+
 #[component]
 fn ShowTodos(todo_list: Vec<Todo>, on_clicked: EventHandler<u32>) -> Element {
     rsx! {
@@ -67,9 +71,10 @@ fn ShowTodos(todo_list: Vec<Todo>, on_clicked: EventHandler<u32>) -> Element {
     }
 }
 
+
+
 #[component]
 fn SingleTodo(single_todo: Todo, on_clicked: EventHandler<u32>) -> Element {
-    let single_todo = single_todo.clone();
     let callback = move |_| on_clicked.call(single_todo.id);
 
     rsx! {

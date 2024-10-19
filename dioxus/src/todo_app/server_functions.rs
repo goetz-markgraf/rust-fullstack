@@ -2,8 +2,15 @@ use dioxus::prelude::*;
 
 use super::types::Todo;
 
+
+
+#[server(GetServerData)]
+pub async fn read_todos() -> Result<Vec<Todo>, ServerFnError> { read_todos_from_file() }
+
+
+
 #[server(PostServerData)]
-pub async fn add_todo(text: String) -> Result<Todo, ServerFnError> {
+pub async fn add_todo(text: String) -> Result<(), ServerFnError> {
     let mut todos = read_todos_from_file()?;
     let id = todos.iter().map(|todo| todo.id).max().unwrap_or(0) + 1;
     let todo = Todo {
@@ -12,15 +19,12 @@ pub async fn add_todo(text: String) -> Result<Todo, ServerFnError> {
         completed: false,
     };
 
-    todos.push(todo.clone());
+    todos.push(todo);
     write_todos_to_file(&todos)?;
-    Ok(todo)
+    Ok(())
 }
 
-#[server(GetServerData)]
-pub async fn read_todos() -> Result<Vec<Todo>, ServerFnError> {
-    read_todos_from_file()
-}
+
 
 #[server(PutServerData)]
 pub async fn toggle_completed(id: u32) -> Result<(), ServerFnError> {
@@ -34,6 +38,8 @@ pub async fn toggle_completed(id: u32) -> Result<(), ServerFnError> {
     write_todos_to_file(&todos)?;
     Ok(())
 }
+
+
 
 // Helper functions for storing and retrieving todos
 
@@ -53,6 +59,8 @@ fn read_todos_from_file() -> Result<Vec<Todo>, ServerFnError> {
 
     Ok(todos)
 }
+
+
 
 fn write_todos_to_file(todos: &[Todo]) -> Result<(), ServerFnError> {
     use std::fs::File;

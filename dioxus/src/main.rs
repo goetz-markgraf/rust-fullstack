@@ -9,6 +9,8 @@ mod todo_app;
 use not_found::NotFound;
 use todo_app::app::TodoApp;
 
+
+
 #[derive(Clone, Routable, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 enum Route {
     #[route("/")]
@@ -17,12 +19,7 @@ enum Route {
     NotFound { segments: Vec<String> },
 }
 
-fn main() {
-    // Init logger
-    dioxus_logger::init(tracing::Level::INFO).expect("failed to init logger");
-    tracing::info!("starting app");
-    launch(App);
-}
+
 
 fn App() -> Element {
     rsx! {
@@ -31,4 +28,13 @@ fn App() -> Element {
             Router::<Route> {}
         }
     }
+}
+
+
+
+fn main() {
+    // Init logger
+    dioxus_logger::init(tracing::Level::INFO).expect("failed to init logger");
+    tracing::info!("starting app");
+    launch(App);
 }
