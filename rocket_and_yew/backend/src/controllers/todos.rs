@@ -3,11 +3,15 @@ use shared::Todo;
 
 use crate::{save_todos_to_file, TodoList};
 
+
+
 #[get("/todos")]
 pub async fn list_todos(todos: &rocket::State<TodoList>) -> Json<Vec<Todo>> {
     let todos = todos.lock().await;
     Json(todos.clone())
 }
+
+
 
 #[post("/todos", data = "<todo>")]
 pub async fn create_todo(
@@ -25,6 +29,8 @@ pub async fn create_todo(
     Ok(Json(todo.0.clone()))
 }
 
+
+
 #[put("/todos/<id>", data = "<todo>")]
 pub async fn update_todo(
     todos: &rocket::State<TodoList>,
@@ -41,26 +47,6 @@ pub async fn update_todo(
             )
         })?;
         Ok(Some(Json(todo.0.clone())))
-    } else {
-        Ok(None)
-    }
-}
-
-#[delete("/todos/<id>")]
-pub async fn delete_todo(
-    todos: &rocket::State<TodoList>,
-    id: usize,
-) -> Result<Option<Json<bool>>, Custom<String>> {
-    let mut todos = todos.lock().await;
-    if todos.iter().any(|t| t.id == id) {
-        todos.retain(|t| t.id != id);
-        save_todos_to_file(&todos).map_err(|_| {
-            Custom(
-                Status::InternalServerError,
-                "Failed to save todos".to_string(),
-            )
-        })?;
-        Ok(Some(Json(true)))
     } else {
         Ok(None)
     }

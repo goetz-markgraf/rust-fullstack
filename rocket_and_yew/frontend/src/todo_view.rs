@@ -35,20 +35,6 @@ pub fn todo() -> Html {
         })
     };
 
-    let onkeypress = {
-        let new_todo_title = new_todo_title.clone();
-        let todos = todos.clone();
-        Callback::from(move |e: KeyboardEvent| {
-            if e.key() == "Enter" {
-                let todos = todos.clone();
-                let new_todo_title = new_todo_title.clone();
-                spawn_local(async move {
-                    create_and_add_todo(todos, new_todo_title).await;
-                });
-            }
-        })
-    };
-
     let onclick = {
         let new_todo_title = new_todo_title.clone();
         let todos = todos.clone();
@@ -67,7 +53,6 @@ pub fn todo() -> Html {
                 type="text"
                 value={(*new_todo_title).clone()}
                 {oninput}
-                {onkeypress}
                 placeholder="What needs to be done?"
             />
             <br />
@@ -78,6 +63,8 @@ pub fn todo() -> Html {
         </div>
     }
 }
+
+
 
 fn render_todo(todos: &UseStateHandle<Vec<Todo>>, todo: &Todo) -> Html {
     let completed = if todo.completed {
@@ -111,6 +98,8 @@ fn render_todo(todos: &UseStateHandle<Vec<Todo>>, todo: &Todo) -> Html {
     }
 }
 
+
+
 async fn create_and_add_todo(
     todos: UseStateHandle<Vec<Todo>>,
     new_todo_title: UseStateHandle<String>,
@@ -122,6 +111,8 @@ async fn create_and_add_todo(
         new_todo_title.set(String::new());
     }
 }
+
+
 
 async fn toggle_todo_completion_state(todos: UseStateHandle<Vec<Todo>>, todo: &mut Todo) {
     todo.completed = !todo.completed;
