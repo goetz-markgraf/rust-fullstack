@@ -5,7 +5,9 @@ use super::types::Todo;
 
 
 #[server(GetServerData)]
-pub async fn read_todos() -> Result<Vec<Todo>, ServerFnError> { read_todos_from_file() }
+pub async fn read_todos() -> Result<Vec<Todo>, ServerFnError> {
+    read_todos_from_file()
+}
 
 
 

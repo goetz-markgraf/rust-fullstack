@@ -47,8 +47,8 @@ pub fn TodoApp() -> Element {
                 Some(Err(error)) => rsx! {
                     p { class:"text-red-800", "Error occurred: {error}" }
                 },
-                None => {
-                    rsx!{ p { "Loading todos..." }}
+                None => rsx!{
+                    p { "Loading todos..." }
                 }
             }
         }

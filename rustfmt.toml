@@ -3,4 +3,4 @@ blank_lines_upper_bound = 3
 max_width = 100
 
 empty_item_single_line = false
-fn_single_line = true
+fn_single_line = false
