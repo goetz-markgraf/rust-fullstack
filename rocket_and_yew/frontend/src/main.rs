@@ -4,6 +4,10 @@ mod todo_view;
 use todo_view::TodoView;
 use yew::prelude::*;
 
+fn main() {
+    yew::Renderer::<App>::new().render();
+}
+
 #[function_component(App)]
 fn app() -> Html {
     html! {
@@ -12,8 +16,4 @@ fn app() -> Html {
            <TodoView />
        </div>
     }
-}
-
-fn main() {
-    yew::Renderer::<App>::new().render();
 }
