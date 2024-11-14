@@ -8,6 +8,7 @@ Rust to develop a full stack web application.
 The application is a simple Todo-List that stores its data
 in a flat file in Json format.
 
+If you want to contact me: goetz.markgraf@codecentric.de
 
 # Prerequisites
 
