@@ -9,7 +9,7 @@ This app uses Dioxus in the full stack mode to create a simple todo app.
 Dioxus comes with a cli tool that you can use to create new projects and
 to run them. This example also uses Tailwind.
 
-1. Install dioxus CLI: `cargo install dioxus-cli` (https://dioxuslabs.com/learn/0.5/getting_started)
+1. Install dioxus CLI: `cargo install dioxus-cli` (https://dioxuslabs.com/learn/0.6/getting_started)
 2. Install npm: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 3. Install the tailwind css cli: https://tailwindcss.com/docs/installation
 

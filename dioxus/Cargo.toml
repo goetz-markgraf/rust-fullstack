@@ -1,6 +1,6 @@
 [package]
-name = "dioxus"
-version = "0.1.0"
+name = "todo_dioxus"
+version = "0.2.0"
 authors = ["Goetz Markgraf <goeetz.markgraf@codecentric.de>"]
 edition = "2021"
 
@@ -8,14 +8,21 @@ edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.197", features = ["derive"] }
-dioxus = { version = "0.5", features = ["fullstack", "router"] }
+dioxus = { version = "0.6.0", features = ["router", "fullstack"] }
 manganis = "0.2.2"
 serde_json = "1.0.128"
 
-# Debug
-dioxus-logger = "0.5.1"
-
 [features]
 default = []
-server = ["dioxus/axum"]
+server = ["dioxus/server"]
 web = ["dioxus/web"]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
