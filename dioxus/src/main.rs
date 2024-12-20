@@ -13,6 +13,10 @@ fn main() {
 
 fn App() -> Element {
     rsx! {
+        document::Stylesheet {
+                    // Urls are relative to your Cargo.toml file
+                    href: asset!("/assets/tailwind.css")
+                }
         div {
             class: "container md:w-auto mx-auto p-4",
             Router::<Route> {}

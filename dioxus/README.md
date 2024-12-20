@@ -26,7 +26,7 @@ npx tailwindcss -i ./input.css -o ./assets/tailwind.css --watch
 To run the app, run:
 
 ```sh
-dx serve --platform fullstack
+dx serve
 ```
 
 Then open your browser and go to `http://localhost:8080`.
