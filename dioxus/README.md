@@ -18,7 +18,7 @@ to run them. This example also uses Tailwind.
 This example uses tailwind css. To compile the tailwind css, run:
 
 ```sh
-npx tailwindcss -i ./input.css -o ./assets/tailwind.css --watch
+npx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css --watch
 ```
 
 ## Run the app
@@ -42,6 +42,8 @@ an HTTP client; this is all handled by Dioxus.
 - `src/main.rs`: The main file of the app. Contains the router
 - `src/not_found.rs`: The 404 page
 - `src/todo_app`: The module that contains the real appl
-  - `src/todo_app/types.rs`: The `Todo` struct
-  - `src/todo_app/server_functions.rs`: all functions that are only run on the server and called from the frontend
-  - `src/todo_app/app.rs`: The todo app's frontend. This file contains multiple components is one file
+    - `src/todo_app/types.rs`: The `Todo` struct
+    - `src/todo_app/server_functions.rs`: all functions that are only run on the server and called
+      from the frontend
+    - `src/todo_app/app.rs`: The todo app's frontend. This file contains multiple components is one
+      file
