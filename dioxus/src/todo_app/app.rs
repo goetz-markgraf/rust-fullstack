@@ -29,13 +29,13 @@ pub fn TodoApp() -> Element {
                     }
                     div { class: "mt-4" }
                     input {
-                        class: "border border-slate-500 focus:ring mr-4 py-1 px-2 rounded-md",
+                        class: "border border-slate-500 focus:ring-3 mr-4 py-1 px-2 rounded-md",
                         placeholder: "Enter new todo",
                         value: "{new_todo_title}",
                         oninput: move |e| new_todo_title.set(e.value())
                     }
                     button {
-                        class: "bg-gradient-to-b from-emerald-300 to-emerald-400 border-emerald-700 border-2 text-black py-1 rounded-md px-4",
+                        class: "bg-linear-to-b from-emerald-300 to-emerald-400 border-emerald-700 border-2 text-black py-1 rounded-md px-4",
                         onclick: move |_| async move {
                             if add_todo(new_todo_title()).await.is_ok() {
                                 todo_list.restart();
