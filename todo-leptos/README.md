@@ -5,6 +5,7 @@ This is a simple example of a web application using Leptos for server-side rende
 ## Running the example
 
 ### Prerequisites
+
 To run the frontend, you need to install Trunk first. Trunk is a
 WebAssembly build tool that is used to build the frontend. It also
 provides a development server with hot reloading.
@@ -29,7 +30,6 @@ cargo leptos watch
 ```
 
 Then open your browser and go to `http://localhost:3000`.
-```
 
 The project is run in a watch mode that means that every change (server
 or client) will trigger a rebuild and the browser will automatically
