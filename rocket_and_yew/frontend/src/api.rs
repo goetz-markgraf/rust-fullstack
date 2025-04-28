@@ -6,7 +6,7 @@ use shared::Todo;
 
 pub async fn fetch_todos() -> Result<Vec<Todo>, Error> {
     let client = Client::new();
-    let res = client.get("http://127.0.0.1:8080/api/todos").send().await?;
+    let res = client.get("http://localhost:8080/api/todos").send().await?;
     res.json::<Vec<Todo>>().await
 }
 
@@ -21,7 +21,7 @@ pub async fn create_todo(todos: &[Todo], title: &str) -> Result<Todo, Error> {
     };
     let client = Client::new();
     let res = client
-        .post("http://127.0.0.1:8080/api/todos")
+        .post("http://localhost:8080/api/todos")
         .json(&todo)
         .send()
         .await?;
@@ -33,7 +33,7 @@ pub async fn create_todo(todos: &[Todo], title: &str) -> Result<Todo, Error> {
 pub async fn update_todo(todo: &Todo) -> Result<Todo, Error> {
     let client = Client::new();
     let res = client
-        .put(format!("http://127.0.0.1:8080/api/todos/{}", todo.id))
+        .put(format!("http://localhost:8080/api/todos/{}", todo.id))
         .json(&todo)
         .send()
         .await?;
