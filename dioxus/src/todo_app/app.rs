@@ -7,7 +7,7 @@ use super::types::Todo;
 
 #[component]
 pub fn TodoApp() -> Element {
-    let mut todo_list = use_resource(|| async move { read_todos().await });
+    let mut todo_list = use_resource(async move || read_todos().await);
     let mut new_todo_title = use_signal(|| "".to_string());
 
     rsx! {
@@ -19,17 +19,14 @@ pub fn TodoApp() -> Element {
                         class: "px-5 py-3 border shadow-lg rounded-lg",
                         ShowTodos {
                             todo_list: todos.clone(),
-                            on_clicked: move |id| {
-                                spawn(async move {
-                                    let _ = toggle_completed(id).await;
-                                    todo_list.restart();
-                                });
+                            on_finished_task: move |id| async move {
+                                let _ = toggle_completed(id).await;
+                                todo_list.restart();
                             }
                         }
                     }
-                    div { class: "mt-4" }
                     input {
-                        class: "border border-slate-500 focus:ring-3 mr-4 py-1 px-2 rounded-md",
+                        class: "mt-4 border border-slate-500 focus:ring-3 mr-4 py-1 px-2 rounded-md",
                         placeholder: "Enter new todo",
                         value: "{new_todo_title}",
                         oninput: move |e| new_todo_title.set(e.value())
@@ -58,13 +55,13 @@ pub fn TodoApp() -> Element {
 
 
 #[component]
-fn ShowTodos(todo_list: Vec<Todo>, on_clicked: EventHandler<u32>) -> Element {
+fn ShowTodos(todo_list: Vec<Todo>, on_finished_task: EventHandler<u32>) -> Element {
     rsx! {
         ul {
             for todo in todo_list.iter() {
                 SingleTodo {
                     single_todo: todo.clone(),
-                    on_clicked: on_clicked
+                    on_finished_task: on_finished_task
                 }
             }
         }
@@ -74,8 +71,8 @@ fn ShowTodos(todo_list: Vec<Todo>, on_clicked: EventHandler<u32>) -> Element {
 
 
 #[component]
-fn SingleTodo(single_todo: Todo, on_clicked: EventHandler<u32>) -> Element {
-    let callback = move |_| on_clicked.call(single_todo.id);
+fn SingleTodo(single_todo: Todo, on_finished_task: EventHandler<u32>) -> Element {
+    let callback = move |_| on_finished_task.call(single_todo.id);
 
     rsx! {
         li {
