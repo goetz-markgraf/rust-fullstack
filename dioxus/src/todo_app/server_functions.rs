@@ -4,14 +4,14 @@ use super::types::Todo;
 
 
 
-#[server(GetServerData)]
+#[server]
 pub async fn read_todos() -> Result<Vec<Todo>, ServerFnError> {
     read_todos_from_file()
 }
 
 
 
-#[server(PostServerData)]
+#[server]
 pub async fn add_todo(text: String) -> Result<(), ServerFnError> {
     let mut todos = read_todos_from_file()?;
     let id = todos.iter().map(|todo| todo.id).max().unwrap_or(0) + 1;
@@ -28,7 +28,7 @@ pub async fn add_todo(text: String) -> Result<(), ServerFnError> {
 
 
 
-#[server(PutServerData)]
+#[server]
 pub async fn toggle_completed(id: u32) -> Result<(), ServerFnError> {
     let mut todos = read_todos_from_file()?;
     let todo = todos
