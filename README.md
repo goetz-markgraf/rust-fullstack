@@ -1,7 +1,5 @@
 # Beyond Javascript -- Writing a Web Application Full Stack with Rust
 
-Repository for the talk at c't webdev 2024
-
 This repository contains code that demonstrates the usage of
 Rust to develop a full stack web application.
 
