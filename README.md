@@ -37,8 +37,8 @@ Learn more about the Rust Programming Language at [rust-lang.org](https://www.ru
 
 # The Examples
 
-There are three different implementations using different tech stacks. In each
-of the three folders, you'll find a `README.md` that explains the architecture and
+There are two different implementations using different tech stacks. In each
+of the two folders, you'll find a `README.md` that explains the architecture and
 how to run the example.
 
 ## `rocket_and_yew`
@@ -51,16 +51,6 @@ that are also used as a primary data model in both the frontend and the backend.
 Learn more about Rocket at [rocket.rs](https://rocket.rs/)
 
 Learn more about Yew at [yew.rs](https://yew.rs/)
-
-## `todo-leptos`
-
-This directory contains a single project that uses the Leptos web framework for
-both the backend and the frontend in a single code base. This is called
-"Leptos SSR" (Server Side Rendering).
-
-Leptos is inspired by solid-js rather than react.
-
-Learn more about Leptos at [leptos.dev](https://leptos.dev/)
 
 ## `dioxus`
 
