@@ -35,7 +35,4 @@ In the `frontend` directory, run:
 trunk serve
 ```
 
-Then open your browser and go to `http://127.0.0.1:8080`.
-
-*Attention!* Using `http://localhost:8080` will not work because the frontend
-tries to access `127.0.0.1` which will result in a CORS error.
+Then open your browser and go to `http://localhost:8080`.
