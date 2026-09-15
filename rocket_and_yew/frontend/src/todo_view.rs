@@ -8,7 +8,7 @@ use yew::prelude::*;
 
 use crate::api::{create_todo, fetch_todos, update_todo};
 
-#[function_component(TodoView)]
+#[component(TodoView)]
 pub fn todo() -> Html {
     let todos = use_state(Vec::new);
     let new_todo_title = use_state(String::new);
@@ -19,7 +19,9 @@ pub fn todo() -> Html {
             spawn_local(async move {
                 match fetch_todos().await {
                     Ok(t) => todos.set(t),
-                    Err(e) => log!(format!("Error fetching todos: {:?}", e)),
+                    Err(e) => {
+                        log!(format!("Error fetching todos: {:?}", e));
+                    }
                 }
             });
         });

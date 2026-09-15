@@ -7,7 +7,7 @@ use super::types::Todo;
 
 #[component]
 pub fn TodoApp() -> Element {
-    let mut todo_list = use_resource(async move || read_todos().await);
+    let mut todo_list = use_resource(move || async move { read_todos().await });
     let mut new_todo_title = use_signal(|| "".to_string());
 
     rsx! {
