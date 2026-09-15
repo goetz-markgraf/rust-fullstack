@@ -8,7 +8,7 @@ fn main() {
     yew::Renderer::<App>::new().render();
 }
 
-#[function_component(App)]
+#[component(App)]
 fn app() -> Html {
     html! {
        <div class="todo-container">

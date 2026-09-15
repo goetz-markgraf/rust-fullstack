@@ -52,7 +52,8 @@ fn read_todos_from_file() -> Result<Vec<Todo>, ServerFnError> {
     let todos = match File::open("todos.json") {
         Ok(mut file) => {
             let mut buf = String::new();
-            file.read_to_string(&mut buf)?;
+            file.read_to_string(&mut buf)
+                .map_err(|e| ServerFnError::new(e.to_string()))?;
 
             serde_json::from_str(&buf)?
         }
@@ -70,8 +71,11 @@ fn write_todos_to_file(todos: &[Todo]) -> Result<(), ServerFnError> {
 
     let json = serde_json::to_string(todos)?;
 
-    let mut writer = File::create("todos.json")?;
-    writer.write_all(json.as_bytes())?;
+    let mut writer = File::create("todos.json")
+        .map_err(|e| ServerFnError::new(e.to_string()))?;
+    writer
+        .write_all(json.as_bytes())
+        .map_err(|e| ServerFnError::new(e.to_string()))?;
 
     Ok(())
 }
