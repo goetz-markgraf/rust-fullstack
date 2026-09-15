@@ -3,6 +3,7 @@ extern crate rocket;
 
 use controllers::controller::{create_todo, list_todos, update_todo};
 use rocket::tokio::sync::Mutex;
+use rocket_cors::{AllowedOrigins, CorsOptions};
 use std::fs::{read_to_string, File};
 use std::io::{self, BufWriter};
 use std::sync::Arc;
@@ -23,8 +24,17 @@ async fn main() {
     let todos = load_todos_from_file().expect("Failed to load todos");
     let todos = Arc::new(Mutex::new(todos));
 
+    // Allow the trunk dev server (and any other origin during development)
+    // to call the API from the browser.
+    let cors = CorsOptions::default()
+        .allowed_origins(AllowedOrigins::all())
+        .allow_credentials(true)
+        .to_cors()
+        .expect("Failed to build CORS fairing");
+
     rocket::build()
         .manage(todos)
+        .attach(cors)
         .mount("/api", routes![list_todos, create_todo, update_todo])
         .launch()
         .await
